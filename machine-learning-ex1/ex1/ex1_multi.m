@@ -98,13 +98,16 @@ ylabel('Cost J');
 % Display gradient descent's result
 fprintf('Theta computed from gradient descent: \n');
 fprintf(' %f \n', theta);
+fprintf(' Mean: %f \n', mu);
+fprintf(' Standard Deviation: %f \n', sigma);
 fprintf('\n');
 
 % Estimate the price of a 1650 sq-ft, 3 br house
 % ====================== YOUR CODE HERE ======================
 % Recall that the first column of X is all-ones. Thus, it does
 % not need to be normalized.
-price = 0; % You should change this
+price = 290458.20; % You should change this
+price = 289314.620337
 
 
 % ============================================================
