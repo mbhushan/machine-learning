@@ -19,8 +19,50 @@ grad = zeros(size(theta));
 
 
 
+%sum = 0;
+
+%for index = 1:m
+%	yVal = y(index,1);
+%	xi = X(index:index,:);
+%	Z = xi * theta;
+%	hThetaXi = sigmoid(Z);
+%	sum = sum + ((-yVal * log(hThetaXi)) - ((1 - yVal)*log(1 - hThetaXi)));	
+%end
+
+%regul = 0;
+%n = length(theta);
+%for index = 2:n
+%	regul = regul + (theta(index) .^ 2);
+%end
+
+%regul = (lambda * regul) / (2*m);
+
+%J = sum/m + regul;
+
+%grad = ((X' * (sigmoid(X * theta) - y)) + (lambda * theta)) / m;
+%disp(grad(1));
+%temp_grad = (X' * (sigmoid(X * theta) - y)) / m;
+%grad(1) = temp_grad(1);
 
 
+% ================
+%z = X * theta;
+%ht = sigmoid(z);
+%total = (-1 * (y' * log(ht))) - ((1 - y)' * log(1 - ht));
+%s = total/m;
+%t = (X' * (ht - y)) ./ m ;
+[s, t] = costFunction(theta, X, y);
+
+ot = theta;
+theta(1) = 0;
+tsum = sum(theta .^ 2);
+tsum = tsum - theta(1);
+reg = (lambda / (2 * m)) * tsum;
+J = s + reg;
+
+reg = ot .+ (lambda / m);
+grad = t + reg;
+grad(1) = t(1);
 
 % =============================================================
 
