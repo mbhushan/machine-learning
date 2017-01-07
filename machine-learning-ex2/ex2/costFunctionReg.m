@@ -62,7 +62,7 @@ J = s + reg;
 
 reg = ot .+ (lambda / m);
 grad = t + reg;
-grad(1) = t(1);
+grad(1) = t(1); %replace the first value
 
 % =============================================================
 
