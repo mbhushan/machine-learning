@@ -31,7 +31,9 @@ X = [ones(m, 1) X];
 %       
 
 
-
+Z = (X * (all_theta)');
+gz = sigmoid(Z);
+[u,p] = max(gz, [], 2);
 
 
 
