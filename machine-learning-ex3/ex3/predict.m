@@ -33,6 +33,8 @@ hx = sigmoid(z3);
 
 [u, p] = max(hx, [], 2);
 
+% probability of classification:w
+
 
 
 
