@@ -62,23 +62,73 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+X = [ones(m, 1) X];
+
+Y = eye(num_labels)(y,:);
+
+sumM = 0;
+for i = 1:m
+	
+	z2 = X(i:i,:) * (Theta1)' ;
+	a2 = sigmoid(z2);
+	a2 = [ones(1,1) a2];
+	z3 = a2 * (Theta2)' ;
+	hx = sigmoid(z3);
+	yi = Y(i:i,:);
+	eval = (( yi * (log(hx))') + ((1 - yi)*(log(1 - hx))')); 
+	sumM = sumM + eval;
+end
+
+J = (-1 * sumM) / m;
 
 
+tc1 = size(Theta1, 2);
+tc2 = size(Theta2, 2);
+
+reg1 = sum(sum(Theta1(:,2:tc1) .^ 2));
+reg2 = sum(sum(Theta2(:,2:tc2) .^ 2));
+
+reg_param = (lambda/(2*m)) * (reg1 + reg2);
+J = J + reg_param;
+
+% implementing back propogation logic.
+% X = R(5000x401), Theta1 = R(25x401)
+% z2 = R(5000x25)
+z2 = X * (Theta1)' ;
+
+% a2 = R(5000x25)
+a2 = sigmoid(z2);
+
+% a2 = R(5000x26)
+a2 = [ones(m,1) a2];
+
+% (Theta2)' = R(26x10)
+z3 = a2 * (Theta2)' ;
+
+% z3 = R(5000x10),  a3 = hx = R(5000x10)
+hx = sigmoid(z3);
+
+% delta3 = R(5000x10)
+delta3 = hx - Y;
+
+% accum = R(10*26)
+Theta2_grad = Theta2_grad + (((delta3)' * a2(:,1:end))/m);
+% delta2 = R(5000x26)
+delta2 = (delta3 * Theta2) .* [ones(m,1) sigmoidGradient(z2)]; 
+delta2 = delta2(:,2:end);
+
+Theta1_grad = Theta1_grad + (((delta2)' * X(:, 1:end))/m);
+% disp(size(Theta1_grad));
+% disp(size(Theta2_grad));
+regParam = (lambda/m);
+T2 = Theta2(:,2:end) .* regParam;
+T2 = [zeros(size(Theta2,1),1) T2];
+Theta2_grad = Theta2_grad + T2;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+T1 = Theta1(:,2:end) .* regParam;
+T1 = [zeros(size(Theta1,1),1) T1];
+Theta1_grad = Theta1_grad + T1;
 
 % -------------------------------------------------------------
 
