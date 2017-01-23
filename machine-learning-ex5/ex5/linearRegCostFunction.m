@@ -21,7 +21,18 @@ grad = zeros(size(theta));
 
 
 
+hx = (X*theta) - y;
+T = theta';
+reg = lambda * sum((T(:,2:end) .^ 2));
+J = ((hx' * hx) + reg)/(2*m);
 
+grad = (X' * (hx))/m;
+reg = (T .* (lambda/m));
+reg(:,1:1) = 0;
+reg = reg';
+%disp(reg);
+%disp(grad);
+grad = grad + reg;
 
 
 
