@@ -51,6 +51,14 @@ x = zeros(n, 1);
 
 
 
+len = length(word_indices);
+
+for index = 1:len
+	i = word_indices(index);
+	%disp(i);
+	x(i) = 1;
+end
+
 
 
 
